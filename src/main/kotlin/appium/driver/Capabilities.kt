@@ -1,8 +1,10 @@
 package appium.driver
 
-import io.appium.java_client.remote.IOSMobileCapabilityType
-import io.appium.java_client.remote.MobileCapabilityType
+import io.appium.java_client.remote.IOSMobileCapabilityType.XCODE_ORG_ID
+import io.appium.java_client.remote.IOSMobileCapabilityType.XCODE_SIGNING_ID
+import io.appium.java_client.remote.MobileCapabilityType.*
 import org.example.util.EnvironmentManager.isRealIosDevice
+import org.openqa.selenium.remote.CapabilityType.PLATFORM_NAME
 import org.openqa.selenium.remote.DesiredCapabilities
 import util.PropertiesReader
 import java.io.File
@@ -12,50 +14,52 @@ object Capabilities {
     fun android(): DesiredCapabilities {
         val capabilities = createCommonCapabilities()
 
-        capabilities.setCapability("appium:newCommandTimeout", 300)
-        capabilities.setCapability("appium:noSign", true)
-        capabilities.setCapability("appium:platformName", "Android")
-        capabilities.setCapability("appium:deviceName", "Android")
-        capabilities.setCapability("appium:automationName", "UIAutomator2")
-        capabilities.setCapability("appium:autoGrantPermissions", true)
-        capabilities.setCapability("appium:enforceAppInstall", true)
-//        capabilities.setCapability("appium:appActivity", "com.squarespace.android.squarespaceapp.ui.activities.StartupActivity")
-//        capabilities.setCapability("appium:appWaitActivity", "com.squarespace.android.onboarding.views.WelcomeActivity")
-
-        return capabilities
+        return capabilities.apply {
+            setCapability("appium:newCommandTimeout", 300)
+            setCapability("appium:noSign", true)
+            setCapability(PLATFORM_NAME, "Android")
+            setCapability(DEVICE_NAME, "Android")
+            setCapability(AUTOMATION_NAME, "UIAutomator2")
+            setCapability("appium:autoGrantPermissions", true)
+            setCapability("appium:enforceAppInstall", true)
+            setCapability("appium:appActivity", "de.hajo.beermat.MainActivity")
+            setCapability("appium:appWaitActivity", "de.hajo.beermat.MainActivity")
+        }
     }
 
-    fun iOS() : DesiredCapabilities {
+    fun iOS(): DesiredCapabilities {
         val capabilities = createCommonCapabilities()
 
-        capabilities.setCapability("appium:newCommandTimeout", 120)
-        capabilities.setCapability("appium:platformName", "iOS")
-        capabilities.setCapability("appium:deviceName", "iPhone 11")
-        capabilities.setCapability("appium:automationName", "XCUITest")
-        capabilities.setCapability("appium:noReset", false)
-        capabilities.setCapability("appium:connectHardwareKeyboard", "false")
-        capabilities.setCapability("appium:useNewWDA", "true")
-        capabilities.setCapability("appium:waitForQuiescence", "false")
-        capabilities.setCapability("appium:maxTypingFrequency", 10)
-
-        if (isRealIosDevice) {
-            capabilities.setCapability(IOSMobileCapabilityType.XCODE_ORG_ID, "<ID>")
-            capabilities.setCapability(IOSMobileCapabilityType.XCODE_SIGNING_ID, "<SIGN ID>")
-            capabilities.setCapability(MobileCapabilityType.UDID, "<PHONE UDID>")
+        capabilities.apply {
+            setCapability("appium:newCommandTimeout", 120)
+            setCapability("appium:platformName", "iOS")
+            setCapability("appium:deviceName", "iPhone 11")
+            setCapability("appium:automationName", "XCUITest")
+            setCapability("appium:noReset", false)
+            setCapability("appium:connectHardwareKeyboard", "false")
+            setCapability("appium:useNewWDA", "true")
+            setCapability("appium:waitForQuiescence", "false")
+            setCapability("appium:maxTypingFrequency", 10)
         }
-        return capabilities
+
+        return when (isRealIosDevice) {
+            true ->
+                capabilities.apply {
+                    setCapability(XCODE_ORG_ID, "<ID>")
+                    setCapability(XCODE_SIGNING_ID, "<SIGN ID>")
+                    setCapability(UDID, "<PHONE UDID>")
+                }
+
+            false -> capabilities
+        }
     }
+}
 
-    private fun createCommonCapabilities(): DesiredCapabilities {
-        val capabilities = DesiredCapabilities()
+private fun createCommonCapabilities(): DesiredCapabilities = DesiredCapabilities().apply {
+    setCapability(APP, getTestAppPath())
+}
 
-        capabilities.setCapability("appium:app", getTestAppPath())
-
-        return capabilities
-    }
-
-    private fun getTestAppPath(): String {
-        val appFilePath = File(PropertiesReader().getProp("android.app.path") as String)
-        return appFilePath.absolutePath
-    }
+private fun getTestAppPath(): String {
+    val propertiesReader = PropertiesReader()
+    return File(propertiesReader.getProp("android.app.path") as String).absolutePath
 }
