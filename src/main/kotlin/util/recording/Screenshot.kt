@@ -1,13 +1,15 @@
-package org.example.appium.recording
+package util.recording
 
-import appium.driver.AutomateDriver
+import appium.driver.DriverSpecification
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.openqa.selenium.*
+import org.openqa.selenium.OutputType
+import org.openqa.selenium.TakesScreenshot
+import org.openqa.selenium.WebDriverException
 
 object Screenshot: KoinComponent {
 
-    private val automateDriver by inject<AutomateDriver>()
+    private val automateDriver by inject<DriverSpecification>()
     fun takeScreenshot(): ScreenshotResult {
 
         val screenshotResult = ScreenshotResult()

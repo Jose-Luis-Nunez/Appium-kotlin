@@ -1,6 +1,6 @@
 package appium.driver
 
-import framework.recording.SeleniumGridManager
+import appium.SeleniumManager
 import io.appium.java_client.AppiumDriver
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.ios.IOSDriver
@@ -45,7 +45,7 @@ abstract class DriverSetup: DriverSpecification {
 class AndroidAutomateDriver: DriverSetup() {
     override fun initDriver() {
         initializeDriver {
-            AndroidDriver(URL(SeleniumGridManager.serverAddress), Capabilities.android())
+            AndroidDriver(URL(SeleniumManager.serverAddress), Capabilities.android())
         }
     }
 
@@ -61,7 +61,7 @@ class AndroidAutomateDriver: DriverSetup() {
 class IOSAutomateDriver: DriverSetup() {
     override fun initDriver() {
         initializeDriver {
-            IOSDriver(URL(SeleniumGridManager.serverAddress), Capabilities.iOS())
+            IOSDriver(URL(SeleniumManager.serverAddress), Capabilities.iOS())
         }
     }
 

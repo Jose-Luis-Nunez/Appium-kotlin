@@ -2,8 +2,11 @@ package appium.driver
 
 import io.appium.java_client.remote.IOSMobileCapabilityType.XCODE_ORG_ID
 import io.appium.java_client.remote.IOSMobileCapabilityType.XCODE_SIGNING_ID
-import io.appium.java_client.remote.MobileCapabilityType.*
-import org.example.util.EnvironmentManager.isRealIosDevice
+import io.appium.java_client.remote.MobileCapabilityType.APP
+import io.appium.java_client.remote.MobileCapabilityType.AUTOMATION_NAME
+import io.appium.java_client.remote.MobileCapabilityType.DEVICE_NAME
+import io.appium.java_client.remote.MobileCapabilityType.UDID
+import util.EnvironmentManager.isRealIosDevice
 import org.openqa.selenium.remote.CapabilityType.PLATFORM_NAME
 import org.openqa.selenium.remote.DesiredCapabilities
 import util.PropertiesReader
