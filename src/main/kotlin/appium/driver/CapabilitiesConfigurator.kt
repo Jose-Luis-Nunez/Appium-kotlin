@@ -6,10 +6,10 @@ import io.appium.java_client.remote.MobileCapabilityType.APP
 import io.appium.java_client.remote.MobileCapabilityType.AUTOMATION_NAME
 import io.appium.java_client.remote.MobileCapabilityType.DEVICE_NAME
 import io.appium.java_client.remote.MobileCapabilityType.UDID
-import util.EnvironmentManager.isRealIosDevice
+import appium.util.EnvironmentManager.isRealIosDevice
 import org.openqa.selenium.remote.CapabilityType.PLATFORM_NAME
 import org.openqa.selenium.remote.DesiredCapabilities
-import util.PropertiesReader
+import appium.util.PropertiesReader
 import java.io.File
 
 object CapabilitiesConfigurator {

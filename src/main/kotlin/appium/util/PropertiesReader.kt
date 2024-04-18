@@ -1,4 +1,4 @@
-package util
+package appium.util
 
 import java.util.Properties
 

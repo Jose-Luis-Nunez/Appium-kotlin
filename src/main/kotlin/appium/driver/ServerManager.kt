@@ -1,7 +1,7 @@
-package appium
+package appium.driver
 
-import util.EnvironmentManager.isRemoteSeleniumGrid
+import appium.util.EnvironmentManager.isRemoteSeleniumGrid
 
-object AppiumServerManager {
+object ServerManager {
     val serverAddress = if (isRemoteSeleniumGrid) "<IP>:<PORT>/wd/hub" else "http://127.0.0.1:4723/"
 }

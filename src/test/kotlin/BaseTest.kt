@@ -1,7 +1,7 @@
 import appium.driver.DriverSpecification
 import pageobjects.BasePage
-import util.EnvironmentManager.platform
-import util.getModule
+import appium.util.EnvironmentManager.platform
+import appium.util.getModule
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin

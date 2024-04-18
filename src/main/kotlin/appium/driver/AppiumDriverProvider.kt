@@ -1,6 +1,5 @@
 package appium.driver
 
-import appium.AppiumServerManager
 import io.appium.java_client.AppiumDriver
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.ios.IOSDriver
@@ -45,7 +44,7 @@ abstract class AppiumDriverProvider: DriverSpecification {
 class AndroidAppiumDriver: AppiumDriverProvider() {
     override fun initDriver() {
         initializeDriver {
-            AndroidDriver(URL(AppiumServerManager.serverAddress), CapabilitiesConfigurator.android())
+            AndroidDriver(URL(ServerManager.serverAddress), CapabilitiesConfigurator.android())
         }
     }
 
@@ -61,7 +60,7 @@ class AndroidAppiumDriver: AppiumDriverProvider() {
 class IosAppiumDriver: AppiumDriverProvider() {
     override fun initDriver() {
         initializeDriver {
-            IOSDriver(URL(AppiumServerManager.serverAddress), CapabilitiesConfigurator.iOS())
+            IOSDriver(URL(ServerManager.serverAddress), CapabilitiesConfigurator.iOS())
         }
     }
 

@@ -1,4 +1,4 @@
-package util
+package appium.util
 
 import appium.driver.AndroidAppiumDriver
 import appium.driver.DriverSpecification
