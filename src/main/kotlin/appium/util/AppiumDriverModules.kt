@@ -6,14 +6,23 @@ import appium.driver.IosAppiumDriver
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-fun getModule(platform: Platform): Module {
-    return if (platform == Platform.Android) AndroidDependencies else IOSDependencies
+object AppiumDriverModules {
+
+    fun getModule(platform: Platform): Module = when (platform) {
+        Platform.Android -> androidDependencies
+        Platform.IOS -> iOSDependencies
+    }
+
+    private val androidDependencies = module {
+        single<DriverSpecification> { AndroidAppiumDriver() }
+    }
+
+    private val iOSDependencies = module {
+        single<DriverSpecification> { IosAppiumDriver() }
+    }
 }
 
-val AndroidDependencies = module {
-    single<DriverSpecification> { AndroidAppiumDriver() }
-}
-
-val IOSDependencies = module {
-    single<DriverSpecification> { IosAppiumDriver() }
+enum class Platform {
+    IOS,
+    Android
 }

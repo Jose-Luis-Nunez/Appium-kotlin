@@ -6,8 +6,3 @@ object EnvironmentManager {
     val isRemoteSeleniumGrid: Boolean = false
     val platform: Platform = Platform.Android
 }
-
-enum class Platform {
-    IOS,
-    Android
-}
