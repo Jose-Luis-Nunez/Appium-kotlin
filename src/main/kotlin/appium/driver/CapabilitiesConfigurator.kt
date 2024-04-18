@@ -12,7 +12,7 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import util.PropertiesReader
 import java.io.File
 
-object Capabilities {
+object CapabilitiesConfigurator {
 
     fun android(): DesiredCapabilities {
         val capabilities = createCommonCapabilities()

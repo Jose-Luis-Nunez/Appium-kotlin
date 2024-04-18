@@ -1,6 +1,6 @@
 package appium.driver
 
-import appium.SeleniumManager
+import appium.AppiumServerManager
 import io.appium.java_client.AppiumDriver
 import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.ios.IOSDriver
@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement
 import java.net.URL
 import java.util.concurrent.TimeUnit
 
-abstract class DriverSetup: DriverSpecification {
+abstract class AppiumDriverProvider: DriverSpecification {
 
     override var driver: AppiumDriver<WebElement> by ThreadLocalDelegate.lateinit()
 
@@ -42,10 +42,10 @@ abstract class DriverSetup: DriverSpecification {
     }
 }
 
-class AndroidAutomateDriver: DriverSetup() {
+class AndroidAppiumDriver: AppiumDriverProvider() {
     override fun initDriver() {
         initializeDriver {
-            AndroidDriver(URL(SeleniumManager.serverAddress), Capabilities.android())
+            AndroidDriver(URL(AppiumServerManager.serverAddress), CapabilitiesConfigurator.android())
         }
     }
 
@@ -58,10 +58,10 @@ class AndroidAutomateDriver: DriverSetup() {
     }
 }
 
-class IOSAutomateDriver: DriverSetup() {
+class IosAppiumDriver: AppiumDriverProvider() {
     override fun initDriver() {
         initializeDriver {
-            IOSDriver(URL(SeleniumManager.serverAddress), Capabilities.iOS())
+            IOSDriver(URL(AppiumServerManager.serverAddress), CapabilitiesConfigurator.iOS())
         }
     }
 
