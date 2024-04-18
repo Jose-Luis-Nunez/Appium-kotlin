@@ -1,7 +1,7 @@
-package org.example.util
+package util
 
 import appium.driver.AndroidAutomateDriver
-import appium.driver.AutomateDriver
+import appium.driver.DriverSpecification
 import appium.driver.IOSAutomateDriver
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -11,9 +11,9 @@ fun getModule(platform: Platform): Module {
 }
 
 val AndroidDependencies = module {
-    single<AutomateDriver> { AndroidAutomateDriver() }
+    single<DriverSpecification> { AndroidAutomateDriver() }
 }
 
 val IOSDependencies = module {
-    single<AutomateDriver> { IOSAutomateDriver() }
+    single<DriverSpecification> { IOSAutomateDriver() }
 }

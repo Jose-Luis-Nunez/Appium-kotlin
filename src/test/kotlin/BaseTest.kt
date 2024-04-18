@@ -1,6 +1,7 @@
-import appium.driver.AutomateDriver
-import org.example.util.EnvironmentManager.platform
-import org.example.util.getModule
+import appium.driver.DriverSpecification
+import pageobjects.BasePage
+import util.EnvironmentManager.platform
+import util.getModule
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
@@ -11,7 +12,7 @@ import org.testng.annotations.BeforeSuite
 
 open class BaseTest : KoinComponent {
 
-    protected val automateDriver by inject<AutomateDriver>()
+    protected val automateDriver by inject<DriverSpecification>()
 
     @BeforeSuite
     fun initModule() {
@@ -29,5 +30,9 @@ open class BaseTest : KoinComponent {
     @AfterMethod(description = "Screenshot | Video", alwaysRun = true)
     fun afterTest(result: ITestResult) {
         automateDriver.driver.quit()
+    }
+
+    inline operator fun <reified T : BasePage> T.invoke(func: T.() -> Unit) = with(T::class) {
+        apply { func() }
     }
 }
