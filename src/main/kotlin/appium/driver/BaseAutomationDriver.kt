@@ -5,16 +5,21 @@ import io.appium.java_client.android.AndroidDriver
 import io.appium.java_client.ios.IOSDriver
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
+import org.openqa.selenium.support.ui.ExpectedConditions
+import org.openqa.selenium.support.ui.WebDriverWait
 import java.net.URL
 import java.util.concurrent.TimeUnit
 
-abstract class AppiumDriverProvider: DriverSpecification {
+private const val TIMEOUT_IN_SECONDS = 30L
 
-    override var driver: AppiumDriver<WebElement> by ThreadLocalDelegate.lateinit()
+abstract class BaseAutomationDriver : AutomationDriver {
+
+    var driver: AppiumDriver<WebElement> by ThreadLocalDelegate.lateinit()
 
     protected fun setImplicitWait() {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
     }
+
     protected fun initializeDriver(supplier: () -> AppiumDriver<WebElement>) {
         try {
             driver = supplier()
@@ -39,10 +44,23 @@ abstract class AppiumDriverProvider: DriverSpecification {
     override fun findElementByPartialText(text: String): WebElement {
         return driver.findElement(By.partialLinkText(text))
     }
+
+    override fun waitForElementToBeClickable(webElement: WebElement) {
+        val wait = WebDriverWait(driver, TIMEOUT_IN_SECONDS)
+        wait.until(ExpectedConditions.elementToBeClickable(webElement))
+    }
+
+    override fun waitForElementToBeVisible(webElement: WebElement) {
+        val wait = WebDriverWait(driver, TIMEOUT_IN_SECONDS)
+        wait.until(ExpectedConditions.visibilityOf(webElement))
+    }
+    override fun closeDriver() {
+        driver.quit()
+    }
 }
 
-class AndroidAppiumDriver: AppiumDriverProvider() {
-    override fun initDriver() {
+class AndroidAutomationDriver : BaseAutomationDriver() {
+    override fun startDriver() {
         initializeDriver {
             AndroidDriver(URL(ServerManager.serverAddress), CapabilitiesConfigurator.android())
         }
@@ -57,8 +75,8 @@ class AndroidAppiumDriver: AppiumDriverProvider() {
     }
 }
 
-class IosAppiumDriver: AppiumDriverProvider() {
-    override fun initDriver() {
+class IosAutomationDriver : BaseAutomationDriver() {
+    override fun startDriver() {
         initializeDriver {
             IOSDriver(URL(ServerManager.serverAddress), CapabilitiesConfigurator.iOS())
         }

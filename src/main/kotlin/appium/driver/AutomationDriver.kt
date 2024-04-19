@@ -1,11 +1,12 @@
 package appium.driver
 
-import io.appium.java_client.AppiumDriver
 import org.openqa.selenium.WebElement
 
-interface DriverSpecification {
-    var driver: AppiumDriver<WebElement>
-    fun initDriver()
+interface AutomationDriver {
+    fun startDriver()
+    fun closeDriver()
+    fun waitForElementToBeVisible(webElement: WebElement)
+    fun waitForElementToBeClickable(webElement: WebElement)
     fun findElementById(id: String): WebElement
     fun findElementsById(id: String): List<WebElement>
     fun findElementByXpath(xPath: String): WebElement

@@ -1,26 +1,25 @@
 package pageobjects
 
-import appium.driver.DriverSpecification
+import appium.driver.AutomationDriver
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.openqa.selenium.WebElement
-import org.openqa.selenium.support.ui.ExpectedConditions
-import org.openqa.selenium.support.ui.WebDriverWait
 
 
 private const val TIMEOUT_IN_SECONDS = 30L
-open class BasePage: KoinComponent {
-    val driver by inject<DriverSpecification>()
+
+open class BasePage : KoinComponent {
+    val driver by inject<AutomationDriver>()
 
     fun getText(webElement: WebElement) = webElement.text!!
 
     fun clickOnElement(element: WebElement) {
-        waitForElementToBeVisible(element)
+        driver.waitForElementToBeVisible(element)
         element.click()
     }
 
     fun WebElement.type(text: String) {
-       waitForElementToBeVisible(this)
+        driver.waitForElementToBeVisible(this)
         if (this.isDisplayed && this.isEnabled) {
             this.click()
             this.clear()
@@ -30,8 +29,13 @@ open class BasePage: KoinComponent {
         }
     }
 
-    private fun waitForElementToBeVisible(webElement: WebElement) {
-        val wait = WebDriverWait(driver.driver, TIMEOUT_IN_SECONDS)
-        wait.until(ExpectedConditions.visibilityOf(webElement))
-    }
+//    private fun waitForElementToBeVisible(webElement: WebElement) {
+//        val wait = WebDriverWait(driver.driver, TIMEOUT_IN_SECONDS)
+//        wait.until(ExpectedConditions.visibilityOf(webElement))
+//    }
+
+//    private fun waitForElementToBeClickable(webElement: WebElement) {
+//        val wait = WebDriverWait(driver.driver, TIMEOUT_IN_SECONDS)
+//        wait.until(ExpectedConditions.elementToBeClickable(webElement))
+//    }
 }
