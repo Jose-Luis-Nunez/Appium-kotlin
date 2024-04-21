@@ -3,12 +3,19 @@ package appium.util
 import java.util.Properties
 
 class PropertiesReader {
-
-    @Suppress("UNCHECKED_CAST")
-    fun <T> getProp(key: String): T {
+    inline fun <reified T : Any> getProp(key: String): T {
         val props = javaClass.classLoader.getResourceAsStream("config.properties").use {
+            if (it == null) throw IllegalStateException("config.properties file not found")
             Properties().apply { load(it) }
         }
-        return (props.getProperty(key) as T) ?: throw RuntimeException("could not find property $key")
+
+        val value = props.getProperty(key) ?: throw IllegalArgumentException("Property $key not found")
+
+        return when (T::class) {
+            String::class -> value as T
+            Int::class -> value.toInt() as T
+            Boolean::class -> value.toBoolean() as T
+            else -> throw IllegalArgumentException("Unsupported property type for $key")
+        }
     }
 }
