@@ -1,4 +1,4 @@
-package appium.util
+package appium.driver.config
 
 object EnvironmentManager {
     val isRealIosDevice: Boolean = false

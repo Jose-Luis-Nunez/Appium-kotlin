@@ -1,6 +1,6 @@
-//package util.recording
+//package appium.recording
 //
-//import appium.driver.AutomationDriver
+//import appium.driver.builder.AutomationDriver
 //import org.koin.core.component.KoinComponent
 //import org.koin.core.component.inject
 //import org.openqa.selenium.OutputType

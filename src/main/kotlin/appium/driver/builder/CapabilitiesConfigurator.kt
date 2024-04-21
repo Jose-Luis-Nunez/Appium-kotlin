@@ -1,15 +1,11 @@
-package appium.driver
+package appium.driver.builder
 
-import io.appium.java_client.remote.IOSMobileCapabilityType.XCODE_ORG_ID
-import io.appium.java_client.remote.IOSMobileCapabilityType.XCODE_SIGNING_ID
-import io.appium.java_client.remote.MobileCapabilityType.APP
-import io.appium.java_client.remote.MobileCapabilityType.AUTOMATION_NAME
-import io.appium.java_client.remote.MobileCapabilityType.DEVICE_NAME
-import io.appium.java_client.remote.MobileCapabilityType.UDID
-import appium.util.EnvironmentManager.isRealIosDevice
-import org.openqa.selenium.remote.CapabilityType.PLATFORM_NAME
-import org.openqa.selenium.remote.DesiredCapabilities
+import appium.driver.config.EnvironmentManager
 import appium.util.PropertiesReader
+import io.appium.java_client.remote.IOSMobileCapabilityType
+import io.appium.java_client.remote.MobileCapabilityType
+import org.openqa.selenium.remote.CapabilityType
+import org.openqa.selenium.remote.DesiredCapabilities
 import java.io.File
 
 object CapabilitiesConfigurator {
@@ -20,9 +16,9 @@ object CapabilitiesConfigurator {
         return capabilities.apply {
             setCapability("appium:newCommandTimeout", 300)
             setCapability("appium:noSign", true)
-            setCapability(PLATFORM_NAME, "Android")
-            setCapability(DEVICE_NAME, "Android")
-            setCapability(AUTOMATION_NAME, "UIAutomator2")
+            setCapability(CapabilityType.PLATFORM_NAME, "Android")
+            setCapability(MobileCapabilityType.DEVICE_NAME, "Android")
+            setCapability(MobileCapabilityType.AUTOMATION_NAME, "UIAutomator2")
             setCapability("appium:autoGrantPermissions", true)
             setCapability("appium:enforceAppInstall", true)
             setCapability("appium:appActivity", "de.hajo.beermat.MainActivity")
@@ -45,24 +41,23 @@ object CapabilitiesConfigurator {
             setCapability("appium:maxTypingFrequency", 10)
         }
 
-        return when (isRealIosDevice) {
+        return when (EnvironmentManager.isRealIosDevice) {
             true ->
                 capabilities.apply {
-                    setCapability(XCODE_ORG_ID, "<ID>")
-                    setCapability(XCODE_SIGNING_ID, "<SIGN ID>")
-                    setCapability(UDID, "<PHONE UDID>")
+                    setCapability(IOSMobileCapabilityType.XCODE_ORG_ID, "<ID>")
+                    setCapability(IOSMobileCapabilityType.XCODE_SIGNING_ID, "<SIGN ID>")
+                    setCapability(MobileCapabilityType.UDID, "<PHONE UDID>")
                 }
 
             false -> capabilities
         }
     }
-}
+    private fun createCommonCapabilities(): DesiredCapabilities = DesiredCapabilities().apply {
+        setCapability(MobileCapabilityType.APP, getTestAppPath())
+    }
 
-private fun createCommonCapabilities(): DesiredCapabilities = DesiredCapabilities().apply {
-    setCapability(APP, getTestAppPath())
-}
-
-private fun getTestAppPath(): String {
-    val propertiesReader = PropertiesReader()
-    return File(propertiesReader.getProp("android.app.path") as String).absolutePath
+    private fun getTestAppPath(): String {
+        val propertiesReader = PropertiesReader()
+        return File(propertiesReader.getProp("android.app.path") as String).absolutePath
+    }
 }

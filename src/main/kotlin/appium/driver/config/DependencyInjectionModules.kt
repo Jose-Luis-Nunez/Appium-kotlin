@@ -1,16 +1,17 @@
-package appium.util
+package appium.driver.config
 
-import appium.driver.AndroidAutomationDriver
-import appium.driver.AutomationDriver
-import appium.driver.IosAutomationDriver
+import appium.driver.builder.AndroidAutomationDriver
+import appium.driver.builder.AutomationDriver
+import appium.driver.builder.IosAutomationDriver
+import appium.driver.config.Platform.*
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
 object DependencyInjectionModules {
 
     fun getModule(platform: Platform): Module = when (platform) {
-        Platform.Android -> androidDependencies
-        Platform.IOS -> iOSDependencies
+        Android -> androidDependencies
+        IOS -> iOSDependencies
     }
 
     private val androidDependencies = module {

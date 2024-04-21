@@ -1,4 +1,4 @@
-package appium.driver
+package appium.driver.builder
 
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
