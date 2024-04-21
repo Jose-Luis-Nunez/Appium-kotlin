@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.appium:java-client:7.5.1")
+    implementation("io.appium:java-client:9.1.0")
 
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.22")
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.22")
