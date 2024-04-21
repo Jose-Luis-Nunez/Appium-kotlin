@@ -28,7 +28,7 @@ The Page Object Pattern can be used to specify elements etc.
 - Every page object class inherits from BasePage()
 - use driver.findElement and selector to identify elements
 
-``` java
+``` kotlin
 class BeermatPage : BasePage() {
 
     private val totalPrice: WebElement get() = driver.findElement(By.id("tv_total_price_of_line"))
@@ -41,7 +41,7 @@ class BeermatPage : BasePage() {
 
 #### Test example
 Every test class inherits from BaseTest()
-``` java
+``` kotlin
 class BeermatTest : BaseTest() {
 
     private val beermat = BeermatPage()
