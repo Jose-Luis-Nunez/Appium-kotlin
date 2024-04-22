@@ -10,6 +10,5 @@ class SbTest : BaseTest() {
 
     @Test
     fun example() {
-        Thread.sleep(5000)
     }
 }

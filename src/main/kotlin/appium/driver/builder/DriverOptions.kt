@@ -7,7 +7,7 @@ import io.appium.java_client.ios.options.XCUITestOptions
 import java.io.File
 import java.time.Duration.ofSeconds
 
-object DriverOptionsConfigurator {
+object DriverOptions {
     fun android(): UiAutomator2Options {
         return UiAutomator2Options().apply {
             setNewCommandTimeout(ofSeconds(300))
@@ -17,8 +17,8 @@ object DriverOptionsConfigurator {
             setAutomationName("UiAutomator2")
             setAutoGrantPermissions(true)
             setEnforceAppInstall(true)
-            setAppActivity("de.hajo.beermat.MainActivity")
-            setAppWaitActivity("de.hajo.beermat.MainActivity")
+//            setAppActivity("de.hajo.beermat.MainActivity")
+//            setAppWaitActivity("de.hajo.beermat.MainActivity")
             setApp(getTestAppPath())
         }
     }

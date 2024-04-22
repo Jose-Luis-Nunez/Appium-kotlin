@@ -1,9 +1,8 @@
 package pageobjects
 
-import appium.driver.builder.AutomationDriver
+import appium.driver.builder.BaseAutomationDriver
+import appium.driver.config.DriverConfigurator.getDriver
 import io.appium.java_client.AppiumDriver
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import org.openqa.selenium.ElementNotInteractableException
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.support.ui.FluentWait
@@ -13,10 +12,9 @@ import java.time.Duration;
 private const val TIMEOUT_IN_SECONDS = 10L
 private const val TIMEOUT_IN_MILLISECONDS = 300L
 
-open class BasePage : KoinComponent {
-    private val automationDriver by inject<AutomationDriver>()
-    protected val driver: AppiumDriver
-        get() = automationDriver.driver
+open class BasePage {
+    private val automationDriver: BaseAutomationDriver = getDriver()
+    protected val driver: AppiumDriver get() = automationDriver.driver
 
     fun getText(webElement: WebElement) = webElement.text!!
 
