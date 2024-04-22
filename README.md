@@ -1,6 +1,8 @@
 # Appium Kotlin Project
 
-This **[Kotlin](https://kotlinlang.org)** project is an example of the implementation of an [Appium](http://appium.io/) test project
+
+This **[Kotlin](https://kotlinlang.org)** project is an example of the implementation of an **[Appium](http://appium.io/)** test project using [TestNG](https://testng.org/) for organizing tests and [Strikt](https://strikt.io/) for assertions. 
+This setup is designed to support the latest version of Appium v9
 
 To run the tests locally:
 1. start emulator
