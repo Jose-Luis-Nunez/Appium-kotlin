@@ -3,8 +3,6 @@ package appium.driver.builder
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
-typealias thread<T> = ThreadLocalDelegate<T>
-
 class ThreadLocalDelegate<T>(private val threadLocal: ThreadLocal<T>) : ReadWriteProperty<Any, T> {
     companion object {
         fun <T> lateinit() = ThreadLocalDelegate<T>(ThreadLocal())
