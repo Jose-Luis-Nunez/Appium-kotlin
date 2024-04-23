@@ -10,7 +10,6 @@ import tests.BaseTest
 class BeermatTest : BaseTest() {
 
     private val beermat = BeermatPage()
-
     @Ignore
     @Test
     fun checkPriceForBeer() {
