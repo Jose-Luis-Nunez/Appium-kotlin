@@ -1,7 +1,7 @@
 package tests
 
 import appium.driver.config.DriverConfigurator.getDriver
-import pageobjects.BasePage
+import pageobjects.BaseScreen
 import org.testng.ITestResult
 import org.testng.annotations.AfterMethod
 import org.testng.annotations.BeforeMethod
@@ -20,7 +20,7 @@ open class BaseTest {
         automationDriver.quitDriver()
     }
 
-    inline operator fun <reified T : BasePage> T.invoke(func: T.() -> Unit) = with(T::class) {
+    inline operator fun <reified T : BaseScreen> T.invoke(func: T.() -> Unit) = with(T::class) {
         apply { func() }
     }
 }

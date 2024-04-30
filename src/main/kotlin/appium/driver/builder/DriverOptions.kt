@@ -17,8 +17,9 @@ object DriverOptions {
             setAutomationName("UiAutomator2")
             setAutoGrantPermissions(true)
             setEnforceAppInstall(true)
-//            setAppActivity("de.hajo.beermat.MainActivity")
-//            setAppWaitActivity("de.hajo.beermat.MainActivity")
+//            setAppActivity("de.hajo.beermat.MainActivity") //app-debug.apk
+//            setAppWaitActivity("de.hajo.beermat.MainActivity") //app-debug.apk
+            setAppWaitActivity("com.wso.smartbroker.presentation.main.MainActivity") //sb.apk
             setApp(getTestAppPath())
         }
     }

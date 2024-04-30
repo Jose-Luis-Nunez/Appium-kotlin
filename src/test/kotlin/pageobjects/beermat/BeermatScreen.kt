@@ -1,10 +1,10 @@
 package pageobjects.beermat
 
 import org.openqa.selenium.By
-import pageobjects.BasePage
+import pageobjects.BaseScreen
 import org.openqa.selenium.WebElement
 
-class BeermatPage : BasePage() {
+class BeermatScreen : BaseScreen() {
 
     private val totalPrice: WebElement get() = driver.findElement(By.id("tv_total_price_of_line"))
     private val addBeerButton: WebElement get() = driver.findElement(By.id("button_add"))

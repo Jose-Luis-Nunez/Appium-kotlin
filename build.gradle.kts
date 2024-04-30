@@ -18,6 +18,8 @@ dependencies {
 
     implementation("org.testng:testng:7.9.0")
     implementation("io.strikt:strikt-core:0.34.1")
+
+    implementation("org.apache.logging.log4j:log4j-api:2.17.1")
 }
 
 tasks.test {
