@@ -6,7 +6,7 @@ import tests.utils.AppiumDriverExtensions.Companion.findElementByResourceId
 import tests.utils.AppiumDriverExtensions.Companion.findElementByText
 
 class LandingScreen : BaseScreen() {
-    private val acceptAllButton: WebElement get() = driver.findElementByText("Alles akzeptieren")
+    private val acceptAllButton: WebElement get() = driver.findElementByText("Accept All")
 
     private val signInBtn: WebElement get() = driver.findElementByResourceId("id_button_signin")
     fun clickOnAcceptAllBtn() {
